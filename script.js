@@ -1,7 +1,9 @@
 const bookList = document.querySelector('#book-list');
 const addBookButton = document.querySelector('#add-book');
+const emptyListButton = document.querySelector('#empty-list');
 
 addBookButton.addEventListener('click', addBookToLibrary);
+emptyListButton.addEventListener('click', emptyList)
 
 
 let myLibrary = [
@@ -100,5 +102,10 @@ function removeBook(bookObject) {
   // reassign an array
   myLibrary = updatedLibrary;
   // run to update UI
+  refreshLibrary();
+}
+
+function emptyList() {
+  myLibrary = [];
   refreshLibrary();
 }
