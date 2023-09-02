@@ -5,7 +5,6 @@ const emptyListButton = document.querySelector('#empty-list');
 addBookButton.addEventListener('click', addBookToLibrary);
 emptyListButton.addEventListener('click', emptyList)
 
-
 let myLibrary = [
   {
     title: "Harry Potter",
@@ -21,7 +20,7 @@ let myLibrary = [
   }
 ];
 
-refreshLibrary();
+refreshUI();
 
 function Book(title, author, pages, isRead) {
   this.title = title
@@ -38,10 +37,10 @@ function addBookToLibrary() {
   // Add new book to the array
   myLibrary.push(new Book(title, author, pages, isRead));
   // run function to add 
-  refreshLibrary();
+  refreshUI();
 }
 
-function refreshLibrary() {
+function refreshUI() {
   // clear all cards
   const bookListItems = bookList.querySelectorAll('.book-card');
   bookListItems.forEach(item => {
@@ -56,28 +55,31 @@ function refreshLibrary() {
 
 function createBookCard(bookObject) {
   const card = document.createElement('div');
-  card.classList.add('book-card');
+  card.classList = 'book-card';
 
   const title = document.createElement('h3');
-  title.classList.add('book-title');
+  title.classList = 'book-title';
   title.textContent = bookObject.title;
 
   const author = document.createElement('p');
-  author.classList.add('book-author');
+  author.classList = 'book-author';
   author.textContent = bookObject.author;
 
   const pages = document.createElement('p');
-  pages.classList.add('book-pages');
+  pages.classList = 'book-pages';
   pages.textContent = bookObject.pages;
 
-  const isRead = document.createElement('p');
+  const isRead = document.createElement('div');
+  isRead.addEventListener('click', ()=> {
+    toggleReadStatus(isRead, bookObject)
+  });
 
   if (bookObject.isRead) {
-    isRead.classList.add('book-status-read');
     isRead.textContent = 'Read';
+    isRead.classList = 'book-status-read';
   } else {
     isRead.textContent = 'Not read';
-    isRead.classList.add('book-status-not-read');
+    isRead.classList = 'book-status-not-read';
   }
 
   card.appendChild(title);
@@ -88,7 +90,7 @@ function createBookCard(bookObject) {
 
   // add button to each book card to remove it
   const removeBookButton = document.createElement('button');
-  removeBookButton.classList.add('button-remove')
+  removeBookButton.classList = 'button-remove';
   removeBookButton.textContent = 'Remove'
   card.appendChild(removeBookButton);
   removeBookButton.addEventListener('click', ()=> {
@@ -102,10 +104,25 @@ function removeBook(bookObject) {
   // reassign an array
   myLibrary = updatedLibrary;
   // run to update UI
-  refreshLibrary();
+  refreshUI();
 }
 
 function emptyList() {
+  // assign empty array
   myLibrary = [];
-  refreshLibrary();
+  // run to update UI
+  refreshUI();
+}
+
+function toggleReadStatus(status, bookObject) {
+  // swap class and text when clicked
+  if (!bookObject.isRead) {
+    bookObject.isRead = true;
+    status.textContent = 'Read';
+    status.classList = 'book-status-read';
+  } else {
+    bookObject.isRead = false;
+    status.textContent = 'Not read';
+    status.classList = 'book-status-not-read';
+  }
 }
