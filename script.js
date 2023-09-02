@@ -1,10 +1,10 @@
-const bookList = document.querySelector('#bookList');
-const addBookButton = document.querySelector('#addBook');
+const bookList = document.querySelector('#book-list');
+const addBookButton = document.querySelector('#add-book');
 
 addBookButton.addEventListener('click', addBookToLibrary);
 
 
-const myLibrary = [
+let myLibrary = [
   {
     title: "Harry Potter",
     author: "J.K. Rowling",
@@ -49,7 +49,6 @@ function refreshLibrary() {
   // create new cards
   myLibrary.forEach(element => {
     createBookCard(element);
-    console.log('Added');
   });
 }
 
@@ -70,12 +69,13 @@ function createBookCard(bookObject) {
   pages.textContent = bookObject.pages;
 
   const isRead = document.createElement('p');
-  isRead.classList.add('book-read-status');
 
   if (bookObject.isRead) {
+    isRead.classList.add('book-status-read');
     isRead.textContent = 'Read';
   } else {
     isRead.textContent = 'Not read';
+    isRead.classList.add('book-status-not-read');
   }
 
   card.appendChild(title);
@@ -83,4 +83,22 @@ function createBookCard(bookObject) {
   card.appendChild(pages);
   card.appendChild(isRead);
   bookList.appendChild(card);
+
+  // add button to each book card to remove it
+  const removeBookButton = document.createElement('button');
+  removeBookButton.classList.add('button-remove')
+  removeBookButton.textContent = 'Remove'
+  card.appendChild(removeBookButton);
+  removeBookButton.addEventListener('click', ()=> {
+    removeBook(bookObject)
+  });
+}
+
+function removeBook(bookObject) {
+  // create a new array without book that has to be deleted
+  const updatedLibrary = myLibrary.filter(book => book.title !== bookObject.title);
+  // reassign an array
+  myLibrary = updatedLibrary;
+  // run to update UI
+  refreshLibrary();
 }

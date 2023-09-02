@@ -14,6 +14,8 @@
   --color-black: #1a1a1a;
   --color-brown: #6e331d;
   --color-orange: #ff784f;
+  --color-orange-transparent: #ff784f13;
+  --color-green: #324e1f;
 }
 
 body {
@@ -29,10 +31,51 @@ header {
   min-height: 10vh;
   padding: 40px 20px;
   background-color: var(--color-brown);
+
 }
 .user-controls button {
   background-color: var(--color-orange);
   padding: 10px 20px;
   font-size: 80%;
   border-radius: 20px;
+}
+
+#book-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  padding: min(15px, 2vw);
+  margin: min(15px, 2vw);
+
+  align-items: center;
+  border-radius: 20px;
+  background-color: var(--color-orange-transparent);
+}
+
+.book-card > * {
+  margin: 5px;
+}
+
+.book-status-read,
+.book-status-not-read,
+.button-remove {
+  padding: 8px 15px;
+  border-radius: 20px;
+}
+
+.book-status-read {
+  background-color: var(--color-green);
+}
+
+.book-status-not-read {
+  background-color: var(--color-brown);
+}
+
+.button-remove {
+  background-color: var(--color-orange);
+  border: none;
 }
