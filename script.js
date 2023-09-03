@@ -13,9 +13,9 @@ let myLibrary = [
     isRead: true
   },
   {
-    title: "GoT",
-    author: "J.R. Tolking",
-    pages: 672,
+    title: "A Song of Ice and Fire",
+    author: "George R. R. Martin",
+    pages: 999,
     isRead: false
   }
 ];

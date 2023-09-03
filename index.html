@@ -15,7 +15,20 @@
       <button id="empty-list">Empty list</button>
     </div>
   </header>
+
   <main id="book-list">
   </main>
+
+  <div class="pop-up">
+    <h3>Add new book</h3>
+    <form id="add-book-form">
+      <input type="text" id="title" name="title" placeholder="Title" required>
+      <input type="text" id="author" name="author" placeholder="Author">
+      <input type="number" id="pages" name="pages" placeholder="Pages">
+      <label for="read-status">Have you read it?</label>
+      <input type="checkbox" id="read-status" name="read-status" >
+      <input type="button" id="submit" value="Submit">
+    </form>
+  </div>
 </body>
 </html>
