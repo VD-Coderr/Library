@@ -1,23 +1,26 @@
 const bookList = document.querySelector('#book-list');
 const addBookButton = document.querySelector('#add-book');
+const submitButton = document.querySelector('#submit');
 const emptyListButton = document.querySelector('#empty-list');
+const popUpWindow = document.querySelector('.pop-up');
 
-addBookButton.addEventListener('click', addBookToLibrary);
+addBookButton.addEventListener('click', showPopUp);
+submitButton.addEventListener('click', addBookToLibrary);
 emptyListButton.addEventListener('click', emptyList)
 
 let myLibrary = [
-  {
-    title: "Harry Potter",
-    author: "J.K. Rowling",
-    pages: 231,
-    isRead: true
-  },
-  {
-    title: "A Song of Ice and Fire",
-    author: "George R. R. Martin",
-    pages: 999,
-    isRead: false
-  }
+  // {
+  //   title: "Harry Potter",
+  //   author: "J.K. Rowling",
+  //   pages: 231,
+  //   isRead: true
+  // },
+  // {
+  //   title: "A Song of Ice and Fire",
+  //   author: "George R. R. Martin",
+  //   pages: 999,
+  //   isRead: false
+  // }
 ];
 
 refreshUI();
@@ -30,12 +33,14 @@ function Book(title, author, pages, isRead) {
 }
 
 function addBookToLibrary() {
-  let title = prompt("Enter title of the book: ");
-  let author = prompt("Enter author of the book: ");
-  let pages = prompt("How many pages this book have?");
-  let isRead = confirm("Have you already read this book?");
+  const title = document.querySelector('#title').textContent;
+  const author = document.querySelector('#author').textContent;
+  const pages = document.querySelector('#pages').textContent;
+  const isRead = document.querySelector('#read-status').checked;
   // Add new book to the array
   myLibrary.push(new Book(title, author, pages, isRead));
+  // Hide window
+  hidePopUp();
   // run function to add 
   refreshUI();
 }
@@ -88,7 +93,7 @@ function createBookCard(bookObject) {
   card.appendChild(isRead);
   bookList.appendChild(card);
 
-  // add button to each book card to remove it
+  // add remove button to each book card
   const removeBookButton = document.createElement('button');
   removeBookButton.classList = 'button-remove';
   removeBookButton.textContent = 'Remove'
@@ -125,4 +130,14 @@ function toggleReadStatus(status, bookObject) {
     status.textContent = 'Not read';
     status.classList = 'book-status-not-read';
   }
+}
+
+function showPopUp() {
+   popUpWindow.classList.remove("hidden"); 
+   popUpWindow.classList.add("visible"); 
+}
+
+function hidePopUp() {
+   popUpWindow.classList.remove("visible"); 
+   popUpWindow.classList.add("hidden"); 
 }
