@@ -3,24 +3,26 @@ const addBookButton = document.querySelector('#add-book');
 const submitButton = document.querySelector('#submit');
 const emptyListButton = document.querySelector('#empty-list');
 const popUpWindow = document.querySelector('.pop-up');
+const addBookForm = document.querySelector('#add-book-form');
+const bodyChildren = document.querySelector('body').children;
 
 addBookButton.addEventListener('click', showPopUp);
 submitButton.addEventListener('click', addBookToLibrary);
 emptyListButton.addEventListener('click', emptyList)
 
 let myLibrary = [
-  // {
-  //   title: "Harry Potter",
-  //   author: "J.K. Rowling",
-  //   pages: 231,
-  //   isRead: true
-  // },
-  // {
-  //   title: "A Song of Ice and Fire",
-  //   author: "George R. R. Martin",
-  //   pages: 999,
-  //   isRead: false
-  // }
+  {
+    title: "Harry Potter",
+    author: "J.K. Rowling",
+    pages: 231,
+    isRead: true
+  },
+  {
+    title: "A Song of Ice and Fire",
+    author: "George R. R. Martin",
+    pages: 999,
+    isRead: false
+  }
 ];
 
 refreshUI();
@@ -33,15 +35,20 @@ function Book(title, author, pages, isRead) {
 }
 
 function addBookToLibrary() {
-  const title = document.querySelector('#title').textContent;
-  const author = document.querySelector('#author').textContent;
-  const pages = document.querySelector('#pages').textContent;
+  // validate form
+  if (!addBookForm.checkValidity()) {
+    alert('Please fill in at least the Title.')
+    return;
+  };
+  const title = document.querySelector('#title').value;
+  const author = document.querySelector('#author').value;
+  const pages = document.querySelector('#pages').value;
   const isRead = document.querySelector('#read-status').checked;
   // Add new book to the array
   myLibrary.push(new Book(title, author, pages, isRead));
   // Hide window
   hidePopUp();
-  // run function to add 
+  // run function to add
   refreshUI();
 }
 
@@ -51,7 +58,6 @@ function refreshUI() {
   bookListItems.forEach(item => {
     bookList.removeChild(item)
   });
-
   // create new cards
   myLibrary.forEach(element => {
     createBookCard(element);
@@ -105,10 +111,7 @@ function createBookCard(bookObject) {
 
 function removeBook(bookObject) {
   // create a new array without book that has to be deleted
-  const updatedLibrary = myLibrary.filter(book => book.title !== bookObject.title);
-  // reassign an array
-  myLibrary = updatedLibrary;
-  // run to update UI
+  myLibrary = myLibrary.filter(book => book !== bookObject);
   refreshUI();
 }
 
@@ -133,11 +136,26 @@ function toggleReadStatus(status, bookObject) {
 }
 
 function showPopUp() {
-   popUpWindow.classList.remove("hidden"); 
-   popUpWindow.classList.add("visible"); 
+  // add CSS class to show
+  popUpWindow.classList.remove("hidden"); 
+  popUpWindow.classList.add("visible");
+  // blur background
+  for (let i = 0; i < bodyChildren.length; i++) {
+    const item = bodyChildren[i]
+    if (!item.classList.contains('visible')) {
+      item.classList.add('blur');
+    }
+  }
 }
 
 function hidePopUp() {
-   popUpWindow.classList.remove("visible"); 
-   popUpWindow.classList.add("hidden"); 
+  // add CSS class to hide
+   popUpWindow.classList.remove("visible");
+   popUpWindow.classList.add("hidden");
+   // unblur background 
+   for (let i = 0; i < bodyChildren.length; i++) {
+    const item = bodyChildren[i]
+    item.classList.remove('blur');
+  }
 }
+

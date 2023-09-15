@@ -44,6 +44,8 @@ header {
 #book-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(300px, 1fr));
+  min-height: calc(90vh - 4rem - 80px);
 }
 
 .book-card {
@@ -88,18 +90,12 @@ header {
   left: 50vw;
   top: 50vh;
   margin: -15rem 0 0 -15rem;
+  padding: 2rem 0;
   text-align: center;
   transition: 0.2s all ease-in;
   transform: scale(0);
-}
-
-/* CSS for the hidden class */
-.hidden {
-  transform: scale(0);
-}
-
-.visible {
-  transform: scale(1);
+  background-color: var(--color-black);
+  border-radius: 20px;
 }
 
 .pop-up > h3 {
@@ -170,3 +166,14 @@ header {
   transform: scale(1);
 }
 
+.hidden {
+  transform: scale(0);
+}
+
+.visible {
+  transform: scale(1);
+}
+
+.blur {
+  filter: blur(3px);
+}
