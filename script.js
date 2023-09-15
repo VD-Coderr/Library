@@ -4,7 +4,7 @@ const submitButton = document.querySelector('#submit');
 const emptyListButton = document.querySelector('#empty-list');
 const popUpWindow = document.querySelector('.pop-up');
 const addBookForm = document.querySelector('#add-book-form');
-const bodyChildren = document.querySelector('body').children;
+const modalOverlay = document.querySelector('#modal-overlay');
 
 addBookButton.addEventListener('click', showPopUp);
 submitButton.addEventListener('click', addBookToLibrary);
@@ -48,6 +48,8 @@ function addBookToLibrary() {
   myLibrary.push(new Book(title, author, pages, isRead));
   // Hide window
   hidePopUp();
+  // clear all inputs
+  clearFormInputs(addBookForm);
   // run function to add
   refreshUI();
 }
@@ -122,6 +124,18 @@ function emptyList() {
   refreshUI();
 }
 
+function clearFormInputs(HTMLform) {
+  const formInputs = HTMLform.querySelectorAll('input');
+  formInputs.forEach(input => {
+    if (input.type =='text' ||
+        input.type =='number') {
+      input.value = "";
+    } else if (input.type =='checkbox'){
+      input.checked = false;
+    }
+  });
+}
+
 function toggleReadStatus(status, bookObject) {
   // swap class and text when clicked
   if (!bookObject.isRead) {
@@ -139,23 +153,16 @@ function showPopUp() {
   // add CSS class to show
   popUpWindow.classList.remove("hidden"); 
   popUpWindow.classList.add("visible");
-  // blur background
-  for (let i = 0; i < bodyChildren.length; i++) {
-    const item = bodyChildren[i]
-    if (!item.classList.contains('visible')) {
-      item.classList.add('blur');
-    }
-  }
+  // block background
+  modalOverlay.style.cssText = "z-index: 1";
+  modalOverlay.addEventListener('click', hidePopUp);
 }
 
 function hidePopUp() {
   // add CSS class to hide
    popUpWindow.classList.remove("visible");
    popUpWindow.classList.add("hidden");
-   // unblur background 
-   for (let i = 0; i < bodyChildren.length; i++) {
-    const item = bodyChildren[i]
-    item.classList.remove('blur');
-  }
+   // block background 
+   modalOverlay.style.cssText = "z-index: -1";
 }
 

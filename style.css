@@ -96,6 +96,7 @@ header {
   transform: scale(0);
   background-color: var(--color-black);
   border-radius: 20px;
+  z-index: 2;
 }
 
 .pop-up > h3 {
@@ -174,6 +175,13 @@ header {
   transform: scale(1);
 }
 
-.blur {
-  filter: blur(3px);
+#modal-overlay {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  backdrop-filter: blur(7.5px);
 }
