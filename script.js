@@ -154,15 +154,14 @@ function showPopUp() {
   popUpWindow.classList.remove("hidden"); 
   popUpWindow.classList.add("visible");
   // block background
-  modalOverlay.style.cssText = "z-index: 1";
+  modalOverlay.style.cssText = "z-index: 1; backdrop-filter: blur(4px)";
   modalOverlay.addEventListener('click', hidePopUp);
 }
 
 function hidePopUp() {
   // add CSS class to hide
-   popUpWindow.classList.remove("visible");
-   popUpWindow.classList.add("hidden");
-   // block background 
-   modalOverlay.style.cssText = "z-index: -1";
+  popUpWindow.classList.remove("visible");
+  popUpWindow.classList.add("hidden");
+  // block background 
+  modalOverlay.style.cssText = "z-index: -1; backdrop-filter: blur(0px)";
 }
-

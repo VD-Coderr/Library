@@ -183,5 +183,6 @@ header {
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  backdrop-filter: blur(7.5px);
+  backdrop-filter: blur(4px);
+  transition: 0.2s all ease-out;
 }
